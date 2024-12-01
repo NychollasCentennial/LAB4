@@ -24,9 +24,9 @@ steps:
       projects: '/Users/nychollas/Documents/Centennial/COMP367/LAB4/Lab4ConsoleApp/Lab4ConsoleApp.csproj'
       arguments: '--output $(Build.ArtifactStagingDirectory)'
 
-- task: NuGetAuthenticate@1
-  inputs:
-    feedUrl: 'https://pkgs.dev.azure.com/ndellamo0158/_packaging/ndellamo0158/nuget/v3/index.json'
+  - task: NuGetAuthenticate@1
+    inputs:
+      feedUrl: 'https://pkgs.dev.azure.com/ndellamo0158/_packaging/ndellamo0158/nuget/v3/index.json'
   # Step 4: Push the NuGet package to a feed
   - task: DotNetCoreCLI@2
     displayName: 'Push NuGet Package'
