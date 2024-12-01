@@ -33,4 +33,4 @@ steps:
     inputs:
       command: 'push'
       packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
-      arguments: '--source https://pkgs.dev.azure.com/ndellamo0158/_packaging/ndellamo0158/nuget/v3/index.json'
+      arguments: '--source https://pkgs.dev.azure.com/ndellamo0158/_packaging/ndellamo0158/nuget/v3/index.json --api-key AzureArtifacts --skip-duplicate'
