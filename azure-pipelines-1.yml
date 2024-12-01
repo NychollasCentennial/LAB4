@@ -14,6 +14,12 @@ steps:
   - task: NuGetAuthenticate@1
     displayName: 'Authenticate with NuGet'
 
+  - task: NuGetCommand@2
+    inputs:
+      command: 'restore'
+      restoreSolution: '**/*.sln'
+      feedsToUse: 'config'
+
   # Step 3: Pack the NuGet package
   - task: DotNetCoreCLI@2
     displayName: 'Pack NuGet Package'
@@ -27,10 +33,11 @@ steps:
   - task: NuGetAuthenticate@1
     name: 'NYchollas'
     displayName: 'Authenticate with NuGet'
-    
-  # Step 4: Push the NuGet package to a feed
-  - task: DotNetCoreCLI@2
+  - task: NuGetCommand@2
     inputs:
-      command: 'dotnet nuget add source "https://pkgs.dev.azure.com/ndellamo0158/_packaging/ndellamo0158/nuget/v3/index.json"  --username "ndellamo0158" --password "AzrFjat11DwXnPyu5qYgYnaZerxlyGD8M26tWEOGV8KBp9IEdZ0pJQQJ99ALACAAAAAnPw96AAASAZDOepus"'
-
+      command: 'push'
+      packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+      nuGetFeedType: 'internal'
+      publishVstsFeed: 'd6307433-fd35-4fb9-933f-59e64efb3658'
+      allowPackageConflicts: true
       
