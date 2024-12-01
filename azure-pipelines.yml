@@ -1,34 +1,29 @@
 trigger:
-- main
+  - main
 
 pool:
-  name: Default # Replace with your self-hosted agent pool name
-
-variables:
-  BuildConfiguration: 'Release'
-  NuGetFeed: 'StringExtensionsFeed'
+  name: Default # Ensure this matches your self-hosted agent's pool name
 
 steps:
-- task: UseDotNet@2
-  inputs:
-    packageType: 'sdk'
-    version: '8.x'
+  # Step 1: Use the .NET SDK (Specify .NET 8 SDK)
+  - task: UseDotNet@2
+    displayName: 'Install .NET 8 SDK'
+    inputs:
+      packageType: 'sdk'
+      version: '8.0.x'
 
-- task: NuGetToolInstaller@1
+  - script: dotnet restore "LAB4/StringExtensionsLibrary.csproj"
+    displayName: 'Restore NuGet Packages for MySpecificProject'
 
-- script: |
-    dotnet restore
-    dotnet build --configuration $(BuildConfiguration)
-    dotnet pack --configuration $(BuildConfiguration) -o $(Build.ArtifactStagingDirectory)
-  displayName: 'Build and Pack NuGet Package'
+  - script: dotnet build "LAB4/StringExtensionsLibrary.csproj" --configuration Release
+    displayName: 'Build MySpecificProject'
 
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Build.ArtifactStagingDirectory)'
-    artifact: 'nuget_package'
+  - script: dotnet pack "Lab4Console/StringExtensionsLibrary.csproj" --configuration Release --output $(Build.ArtifactStagingDirectory)
+    displayName: 'Pack MySpecificProject as NuGet Package'
 
-- task: NuGetCommand@2
-  inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
-    publishVstsFeed: $(NuGetFeed)
+  - task: NuGetAuthenticate@1
+    displayName: 'Authenticate with NuGet'
+
+  - script: dotnet nuget push "$(Build.ArtifactStagingDirectory)/*.nupkg" --source https://pkgs.dev.azure.com/ndellamo0158/301259514(DellaMonicadaSilva)_Lab4/_packaging/Lab4feed/nuget/v3/index.json --api-key AzureArtifacts --skip-duplicate
+    displayName: 'Push NuGet Package to Azure Artifacts'
+    
