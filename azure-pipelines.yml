@@ -11,12 +11,6 @@ steps:
     inputs:
       packageType: 'sdk'
       version: '8.0.x'
-
-  - task: DotNetCoreCLI@2
-    displayName: 'Build MySpecificProject'
-    inputs:
-      command: 'build'
-      projects: '**/Lab4ConsoleApp.csproj'
    
   - task: NuGetCommand@2
     inputs:
