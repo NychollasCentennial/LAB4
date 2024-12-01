@@ -12,6 +12,12 @@ steps:
       packageType: 'sdk'
       version: '8.0.x'
 
+  - task: NuGetCommand@2
+    inputs:
+      command: 'restore'
+      restoreSolution: '**/*.sln'
+      feedsToUse: 'select'
+      vstsFeed: 'd6307433-fd35-4fb9-933f-59e64efb3658'
   # Step 2: Authenticate with NuGet (for Linux agents)
   - task: NuGetAuthenticate@1
     displayName: 'Authenticate with NuGet'
@@ -23,6 +29,7 @@ steps:
       command: 'pack'
       projects: '/Users/nychollas/Documents/Centennial/COMP367/LAB4/StringExtensionsLibrary/StringExtensionsLibrary.csproj'
       arguments: '--output $(Build.ArtifactStagingDirectory)'
+
 
   # Step 4: Push the NuGet package to a feed
   - task: DotNetCoreCLI@2
