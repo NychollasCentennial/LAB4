@@ -12,19 +12,13 @@ steps:
       packageType: 'sdk'
       version: '8.0.x'
 
-  # Step 2: Restore NuGet packages (optional but recommended for build dependencies)
-  - task: NuGetCommand@2
-    displayName: 'Restore NuGet Packages'
-    inputs:
-      command: 'restore'
-      restoreSolution: '**/*.sln'
 
   # Step 3: Pack the NuGet package
   - task: DotNetCoreCLI@2
     displayName: 'Pack NuGet Package'
     inputs:
       command: 'pack'
-      projects: '**/StringExtensionsLibrary.csproj'
+      projects: '/Users/nychollas/Documents/Centennial/COMP367/LAB4/StringExtensionsLibrary/StringExtensionsLibrary.csproj'
       arguments: '--output $(Build.ArtifactStagingDirectory)'
 
   # Step 4: Push the NuGet package to a feed
