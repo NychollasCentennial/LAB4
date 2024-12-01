@@ -27,9 +27,10 @@ steps:
     displayName: 'Authenticate with NuGet'
     
   # Step 4: Push the NuGet package to a feed
-  - task: DotNetCoreCLI@2
-    displayName: 'Push NuGet Package'
+  - task: NuGetCommand@2
     inputs:
       command: 'push'
-      packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
-      arguments: '--source https://pkgs.dev.azure.com/ndellamo0158/_packaging/ndellamo0158/nuget/v3/index.json --api-key AzureArtifacts --skip-duplicate'
+      packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+      nuGetFeedType: 'internal'
+      publishVstsFeed: 'd6307433-fd35-4fb9-933f-59e64efb3658'
+      allowPackageConflicts: true
