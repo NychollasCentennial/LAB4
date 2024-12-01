@@ -1,0 +1,11 @@
+/Users/nychollas/Documents/Centennial/COMP367/LAB4/StringExtensionsLibrary/bin/Debug/net8.0/StringExtensionsLibrary.deps.json
+/Users/nychollas/Documents/Centennial/COMP367/LAB4/StringExtensionsLibrary/bin/Debug/net8.0/StringExtensionsLibrary.dll
+/Users/nychollas/Documents/Centennial/COMP367/LAB4/StringExtensionsLibrary/bin/Debug/net8.0/StringExtensionsLibrary.pdb
+/Users/nychollas/Documents/Centennial/COMP367/LAB4/StringExtensionsLibrary/obj/Debug/net8.0/StringExtensionsLibrary.GeneratedMSBuildEditorConfig.editorconfig
+/Users/nychollas/Documents/Centennial/COMP367/LAB4/StringExtensionsLibrary/obj/Debug/net8.0/StringExtensionsLibrary.AssemblyInfoInputs.cache
+/Users/nychollas/Documents/Centennial/COMP367/LAB4/StringExtensionsLibrary/obj/Debug/net8.0/StringExtensionsLibrary.AssemblyInfo.cs
+/Users/nychollas/Documents/Centennial/COMP367/LAB4/StringExtensionsLibrary/obj/Debug/net8.0/StringExtensionsLibrary.csproj.CoreCompileInputs.cache
+/Users/nychollas/Documents/Centennial/COMP367/LAB4/StringExtensionsLibrary/obj/Debug/net8.0/StringExtensionsLibrary.dll
+/Users/nychollas/Documents/Centennial/COMP367/LAB4/StringExtensionsLibrary/obj/Debug/net8.0/refint/StringExtensionsLibrary.dll
+/Users/nychollas/Documents/Centennial/COMP367/LAB4/StringExtensionsLibrary/obj/Debug/net8.0/StringExtensionsLibrary.pdb
+/Users/nychollas/Documents/Centennial/COMP367/LAB4/StringExtensionsLibrary/obj/Debug/net8.0/ref/StringExtensionsLibrary.dll
