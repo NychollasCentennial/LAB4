@@ -12,9 +12,6 @@ steps:
       packageType: 'sdk'
       version: '8.0.x'
 
-  # Step 2: Authenticate with NuGet (for Linux agents)
-  - task: NuGetAuthenticate@1
-    displayName: 'Authenticate with NuGet'
 
   # Step 3: Pack the NuGet package
   - task: DotNetCoreCLI@2
@@ -24,9 +21,11 @@ steps:
       projects: '/Users/nychollas/Documents/Centennial/COMP367/LAB4/Lab4ConsoleApp/Lab4ConsoleApp.csproj'
       arguments: '--output $(Build.ArtifactStagingDirectory)'
 
+
+  # Step 2: Authenticate with NuGet (for Linux agents)
   - task: NuGetAuthenticate@1
-    inputs:
-      feedUrl: 'https://pkgs.dev.azure.com/ndellamo0158/_packaging/ndellamo0158/nuget/v3/index.json'
+    displayName: 'Authenticate with NuGet'
+    
   # Step 4: Push the NuGet package to a feed
   - task: DotNetCoreCLI@2
     displayName: 'Push NuGet Package'
