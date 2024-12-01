@@ -25,6 +25,7 @@ steps:
 
   # Step 2: Authenticate with NuGet (for Linux agents)
   - task: NuGetAuthenticate@1
+    name: 'NYchollas'
     displayName: 'Authenticate with NuGet'
     
   # Step 4: Push the NuGet package to a feed
@@ -35,3 +36,4 @@ steps:
       nuGetFeedType: 'internal'
       publishVstsFeed: 'd6307433-fd35-4fb9-933f-59e64efb3658'
       allowPackageConflicts: true
+      
