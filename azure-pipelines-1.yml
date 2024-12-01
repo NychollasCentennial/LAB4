@@ -1,3 +1,4 @@
+
 trigger:
   - main
 
@@ -18,5 +19,5 @@ steps:
       projects: '/Users/nychollas/Documents/Centennial/COMP367/LAB4/StringExtensionsLibrary/StringExtensionsLibrary.csproj'
       arguments: '--output $(Build.ArtifactStagingDirectory)'
   
-  - script: dotnet nuget push "$(Build.ArtifactStagingDirectory)/*.nupkg" --source https://pkgs.dev.azure.com/ndellamo0158/_packaging/ndellamo0158/nuget/v3/index.json --api-key AzureArtifacts --skip-duplicate
-  
+  # - script: dotnet nuget push "$(Build.ArtifactStagingDirectory)/*.nupkg" --source https://pkgs.dev.azure.com/ndellamo0158/_packaging/ndellamo0158/nuget/v3/index.json --api-key AzureArtifacts --skip-duplicate
+  - script: /opt/homebrew/bin/mono /Users/nychollas/myagent2/_work/_tool/NuGet/4.9.6/x64/nuget.exe push /Users/nychollas/myagent2/_work/2/a/StringExtensionsLibrary.1.0.0.nupkg -NonInteractive -Source https://pkgs.dev.azure.com/ndellamo0158/_packaging/ndellamo0158/nuget/v3/index.json -ApiKey VSTS -Verbosity Detailed
