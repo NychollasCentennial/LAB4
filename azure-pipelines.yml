@@ -28,13 +28,6 @@ steps:
       arguments: '--output $(Build.ArtifactStagingDirectory)'
 
   # Step 4: Push the NuGet package to a feed
-  - task: NuGetCommand@2
-    inputs:
-      command: 'push'
-      packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
-      nuGetFeedType: 'internal'
-      publishVstsFeed: 'd6307433-fd35-4fb9-933f-59e64efb3658'
-      allowPackageConflicts: true
 
   - task: NuGetCommand@2
     inputs:
