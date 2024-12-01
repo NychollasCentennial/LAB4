@@ -30,4 +30,5 @@ steps:
     inputs:
       command: 'push'
       packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
-      publishVstsFeed: 'StringExtensionsFeed' # Replace with your actual feed name
+      arguments: '--source https://pkgs.dev.azure.com/ndellamo0158/_packaging/ndellamo0158/nuget/v3/index.json'
+      publishVstsFeed: 'ndellamo0158' 
