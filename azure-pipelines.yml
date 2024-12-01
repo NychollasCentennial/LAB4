@@ -11,19 +11,9 @@ steps:
     inputs:
       packageType: 'sdk'
       version: '8.0.x'
-
-  - script: dotnet restore "LAB4/StringExtensionsLibrary.csproj"
-    displayName: 'Restore NuGet Packages for MySpecificProject'
-
-  - script: dotnet build "LAB4/StringExtensionsLibrary.csproj" --configuration Release
-    displayName: 'Build MySpecificProject'
-
-  - script: dotnet pack "Lab4Console/StringExtensionsLibrary.csproj" --configuration Release --output $(Build.ArtifactStagingDirectory)
-    displayName: 'Pack MySpecificProject as NuGet Package'
-
-  - task: NuGetAuthenticate@1
-    displayName: 'Authenticate with NuGet'
-
-  - script: dotnet nuget push "$(Build.ArtifactStagingDirectory)/*.nupkg" --source https://pkgs.dev.azure.com/ndellamo0158/301259514(DellaMonicadaSilva)_Lab4/_packaging/Lab4feed/nuget/v3/index.json --api-key AzureArtifacts --skip-duplicate
-    displayName: 'Push NuGet Package to Azure Artifacts'
-    
+  
+  - task: DotNetCoreCLI@2
+    displayName: dotnet buuild
+    inputs:
+      command: 'build'
+      projects: '**/StringExtensionsLibrary.csproj'
