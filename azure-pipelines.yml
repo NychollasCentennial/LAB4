@@ -12,22 +12,18 @@ steps:
       packageType: 'sdk'
       version: '8.0.x'
 
-  # Step 2: Restore Dependencies for the Specific Project
-  - script: dotnet restore "**/Lab4ConsoleApp.csproj"
-    displayName: 'Restore NuGet Packages for MySpecificProject'
-
-  # Step 3: Build the Specific Project
-  - script: dotnet build "**/Lab4ConsoleApp.csproj" --configuration Release
+  - task: DotNetCoreCLI@2
     displayName: 'Build MySpecificProject'
+    inputs:
+      command: 'build'
+      projects: '**/Lab4ConsoleApp.csproj'
+   
 
-  # Step 4: Pack the Specific Project as a NuGet Package
-  - script: dotnet pack "**/Lab4ConsoleApp.csproj" --configuration Release --output $(Build.ArtifactStagingDirectory)
+  - script: dotnet pack "**/StringExtensionsLibrary.csproj" --configuration Release --output $(Build.ArtifactStagingDirectory)
     displayName: 'Pack MySpecificProject as NuGet Package'
 
-  # Step 5: Authenticate with Azure Artifacts Feed
   - task: NuGetAuthenticate@1
     displayName: 'Authenticate with NuGet'
 
-  # Step 6: Push the NuGet Package to Azure Artifacts Feed
   - script: dotnet nuget push "$(Build.ArtifactStagingDirectory)/*.nupkg" --source https://pkgs.dev.azure.com/ndellamo0158/301259514(DellaMonicadaSilva)_Lab4/_packaging/Lab4feed/nuget/v3/index.json --api-key AzureArtifacts --skip-duplicate
     displayName: 'Push NuGet Package to Azure Artifacts'
