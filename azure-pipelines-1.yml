@@ -19,7 +19,7 @@ steps:
     displayName: 'Pack NuGet Package'
     inputs:
       command: 'pack'
-      projects: '/Users/nychollas/Documents/Centennial/COMP367/LAB4/Lab4ConsoleApp/Lab4ConsoleApp.csproj'
+      projects: '/Users/nychollas/Documents/Centennial/COMP367/LAB4/StringExtensionsLibrary/StringExtensionsLibrary.csproj'
       arguments: '--output $(Build.ArtifactStagingDirectory)'
 
 
