@@ -11,33 +11,17 @@ steps:
     inputs:
       packageType: 'sdk'
       version: '8.0.x'
-  - task: NuGetAuthenticate@1
-    displayName: 'Authenticate with NuGet'
-
-  - task: NuGetCommand@2
-    inputs:
-      command: 'restore'
-      restoreSolution: '**/*.sln'
-      feedsToUse: 'config'
-
-  # Step 3: Pack the NuGet package
   - task: DotNetCoreCLI@2
     displayName: 'Pack NuGet Package'
     inputs:
       command: 'pack'
       projects: '/Users/nychollas/Documents/Centennial/COMP367/LAB4/StringExtensionsLibrary/StringExtensionsLibrary.csproj'
       arguments: '--output $(Build.ArtifactStagingDirectory)'
-
-
-  # Step 2: Authenticate with NuGet (for Linux agents)
-  - task: NuGetAuthenticate@1
-    name: 'NYchollas'
-    displayName: 'Authenticate with NuGet'
   - task: NuGetCommand@2
     inputs:
       command: 'push'
       packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
       nuGetFeedType: 'internal'
-      publishVstsFeed: 'd6307433-fd35-4fb9-933f-59e64efb3658'
-      allowPackageConflicts: true
-      
+      publishVstsFeed: '42921f8c-a30d-4a74-9798-c0ac06c0efa6/c2eb06b0-7ccc-4e09-b82e-f4c2515a3de0'
+      publishPackageMetadata: false
+      verbosityPush: 'Normal'
