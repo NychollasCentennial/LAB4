@@ -1,0 +1,36 @@
+trigger:
+  - main
+
+pool:
+  name: Default # Ensure this matches your self-hosted agent's pool name
+
+steps:
+  # Step 1: Install .NET SDK (Ensure .NET 8 SDK is used)
+  - task: UseDotNet@2
+    displayName: 'Install .NET 8 SDK'
+    inputs:
+      packageType: 'sdk'
+      version: '8.0.x'
+
+  # Step 2: Restore NuGet packages (optional but recommended for build dependencies)
+  - task: NuGetCommand@2
+    displayName: 'Restore NuGet Packages'
+    inputs:
+      command: 'restore'
+      restoreSolution: '**/*.sln'
+
+  # Step 3: Pack the NuGet package
+  - task: DotNetCoreCLI@2
+    displayName: 'Pack NuGet Package'
+    inputs:
+      command: 'pack'
+      projects: '**/StringExtensionsLibrary.csproj'
+      arguments: '--output $(Build.ArtifactStagingDirectory)'
+
+  # Step 4: Push the NuGet package to a feed
+  - task: DotNetCoreCLI@2
+    displayName: 'Push NuGet Package'
+    inputs:
+      command: 'push'
+      packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
+      publishVstsFeed: '42921f8c-a30d-4a74-9798-c0ac06c0efa6/c2eb06b0-7ccc-4e09-b82e-f4c2515a3de0'
