@@ -18,12 +18,15 @@ steps:
       command: 'build'
       projects: '**/Lab4ConsoleApp.csproj'
    
+  - task: NuGetCommand@2
+    inputs:
+      command: 'pack'
+      packagesToPack: '**/StringExtensionsLibrary.csproj'
+      versioningScheme: 'off'
 
-  - script: dotnet pack "**/StringExtensionsLibrary.csproj" --configuration Release --output $(Build.ArtifactStagingDirectory)
-    displayName: 'Pack MySpecificProject as NuGet Package'
-
-  - task: NuGetAuthenticate@1
-    displayName: 'Authenticate with NuGet'
-
-  - script: dotnet nuget push "$(Build.ArtifactStagingDirectory)/*.nupkg" --source https://pkgs.dev.azure.com/ndellamo0158/301259514(DellaMonicadaSilva)_Lab4/_packaging/Lab4feed/nuget/v3/index.json --api-key AzureArtifacts --skip-duplicate
-    displayName: 'Push NuGet Package to Azure Artifacts'
+  - task: NuGetCommand@2
+    inputs:
+      command: 'push'
+      packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+      nuGetFeedType: 'internal'
+      publishVstsFeed: '42921f8c-a30d-4a74-9798-c0ac06c0efa6/c2eb06b0-7ccc-4e09-b82e-f4c2515a3de0'
