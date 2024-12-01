@@ -29,8 +29,9 @@ steps:
     displayName: 'Authenticate with NuGet'
     
   # Step 4: Push the NuGet package to a feed
-  - task: DotNetCoreCLI@2
+  - task: NuGetCommand@2
     inputs:
       command: 'push'
-      packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
-      arguments: '--api-key VSTS --interactive'
+      packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+      nuGetFeedType: 'internal'
+      publishVstsFeed: '42921f8c-a30d-4a74-9798-c0ac06c0efa6/c2eb06b0-7ccc-4e09-b82e-f4c2515a3de0'
