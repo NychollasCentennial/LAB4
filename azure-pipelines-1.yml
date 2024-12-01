@@ -12,12 +12,16 @@ steps:
     inputs:
       packageType: 'sdk'
       version: '8.0.x'
-  - task: DotNetCoreCLI@2
-    displayName: 'Pack NuGet Package'
+
+  - task: NuGetCommand@2
     inputs:
       command: 'pack'
-      projects: '/Users/nychollas/Documents/Centennial/COMP367/LAB4/StringExtensionsLibrary/StringExtensionsLibrary.csproj'
-      arguments: '--output $(Build.ArtifactStagingDirectory)'
-  
-  # - script: dotnet nuget push "$(Build.ArtifactStagingDirectory)/*.nupkg" --source https://pkgs.dev.azure.com/ndellamo0158/_packaging/ndellamo0158/nuget/v3/index.json --api-key AzureArtifacts --skip-duplicate
-  - script: /opt/homebrew/bin/mono /Users/nychollas/myagent2/_work/_tool/NuGet/4.9.6/x64/nuget.exe push /Users/nychollas/myagent2/_work/2/a/StringExtensionsLibrary.1.0.0.nupkg -NonInteractive -Source "https://pkgs.dev.azure.com/ndellamo0158/_packaging/ndellamo0158/nuget/v3/index.json" -ApiKey AzrFjat11DwXnPyu5qYgYnaZerxlyGD8M26tWEOGV8KBp9IEdZ0pJQQJ99ALACAAAAAnPw96AAASAZDOepus
+      packagesToPack: '**/StringExtensionsLibrary.csproj'
+      versioningScheme: 'off'
+
+  - task: NuGetCommand@2
+    inputs:
+      command: 'push'
+      packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+      nuGetFeedType: 'internal'
+      publishVstsFeed: 'd6307433-fd35-4fb9-933f-59e64efb3658'
