@@ -1,0 +1,36 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+trigger:
+- main
+
+pool:
+  name: 'Default' # Replace with your self-hosted agent pool name
+
+variables:
+  BuildConfiguration: 'Release'
+  NuGetFeed: 'StringExtensionsFeed'
+
+steps:
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '8.x'
+
+- script: |
+    dotnet restore
+    dotnet build --configuration $(BuildConfiguration)
+    dotnet pack --configuration $(BuildConfiguration) -o $(Build.ArtifactStagingDirectory)
+  displayName: 'Build and Pack NuGet Package'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.ArtifactStagingDirectory)'
+    artifact: 'nuget_package'
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+    publishVstsFeed: $(NuGetFeed)
