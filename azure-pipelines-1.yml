@@ -33,5 +33,4 @@ steps:
     inputs:
       command: 'push'
       packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
-      nuGetFeedType: 'internal'
-      publishVstsFeed: 'd6307433-fd35-4fb9-933f-59e64efb3658'
+      arguments: '--api-key VSTS --interactive'
