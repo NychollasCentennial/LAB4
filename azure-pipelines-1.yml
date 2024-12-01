@@ -28,3 +28,4 @@ steps:
       command: 'push'
       packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
       publishVstsFeed: '42921f8c-a30d-4a74-9798-c0ac06c0efa6/c2eb06b0-7ccc-4e09-b82e-f4c2515a3de0'
+      arguments: '-- source https://pkgs.dev.azure.com/ndellamo0158/301259514(DellaMonicadaSilva)_Lab4/_packaging/StringExtensionsFeed/nuget/v3/index.json'
