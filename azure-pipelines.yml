@@ -1,7 +1,3 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
 trigger:
 - main
 
@@ -10,7 +6,6 @@ pool:
 
 variables:
   BuildConfiguration: 'Release'
-  NuGetFeed: 'StringExtensionsFeed'
 
 steps:
 - task: UseDotNet@2
@@ -24,13 +19,8 @@ steps:
     dotnet pack --configuration $(BuildConfiguration) -o $(Build.ArtifactStagingDirectory)
   displayName: 'Build and Pack NuGet Package'
 
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Build.ArtifactStagingDirectory)'
-    artifact: 'nuget_package'
-
-- task: NuGetCommand@2
-  inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
-    publishVstsFeed: $(NuGetFeed)
+- script: |
+    dotnet nuget push "$(Build.ArtifactStagingDirectory)/*.nupkg" \
+      --source "https://pkgs.dev.azure.com/<organization>/<project>/_packaging/<feed>/nuget/v3/index.json" \
+      --api-key "AzureDevOps"
+  displayName: 'Push NuGet Package'
