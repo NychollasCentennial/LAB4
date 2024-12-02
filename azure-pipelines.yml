@@ -12,9 +12,12 @@ steps:
       packageType: 'sdk'
       version: '8.0.x'
 
-  # Step 2: Restore Dependencies for the Library Project
-  - script: dotnet restore "**/StringExtensionsLibrary.csproj"
-    displayName: 'Restore NuGet Packages for Library Project'
+  # Step 2: Restore NuGet packages (optional but recommended for build dependencies)
+  - task: NuGetCommand@2
+    displayName: 'Restore NuGet Packages'
+    inputs:
+      command: 'restore'
+      restoreSolution: '**/*.sln'
 
   # Step 3: Build the Library Project
   - script: dotnet build "**/StringExtensionsLibrary.csproj" --configuration Release
