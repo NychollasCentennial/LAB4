@@ -19,9 +19,11 @@ steps:
       command: 'restore'
       restoreSolution: '**/*.sln'
 
-  # Step 3: Build the Library Project
-  - script: dotnet build "**/StringExtensionsLibrary.csproj" --configuration Release
-    displayName: 'Build Library Project'
+
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'build'
+      projects: 'C:\Users\Hp\Source\Repos\LAB4\StringExtensionsLibrary\StringExtensionsLibrary.csproj'
 
   # Step 4: Pack the Library Project as a NuGet Package
   - script: dotnet pack "**/StringExtensionsLibrary.csproj" --configuration Release --output $(Build.ArtifactStagingDirectory)
